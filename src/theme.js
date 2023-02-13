@@ -7,9 +7,21 @@ export default {
   },
   iconButton: {
     size: {
-      sm: 28,
-      md: 32,
-      lg: 40,
+      sm: {
+        width: 28,
+        height: 28,
+        padding: 6,
+      },
+      md: {
+        width: 32,
+        height: 32,
+        padding: 6,
+      },
+      lg: {
+        width: 40,
+        height: 40,
+        padding: 6,
+      },
     },
   },
   input: {

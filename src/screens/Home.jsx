@@ -1,6 +1,6 @@
-import { View } from 'react-native';
-import { BottomSheet } from '../components/BottomSheet';
-import { HomeFooter } from '../components/HomeFooter';
+import { Text, View } from 'react-native';
+import { BottomSheet } from '../components/atoms/bottomSheet';
+
 import { Map } from '../components/Map';
 
 export function Home() {
@@ -9,7 +9,6 @@ export function Home() {
       <Map />
 
       <BottomSheet />
-      {/* <HomeFooter /> */}
     </View>
   );
 }

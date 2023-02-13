@@ -12,20 +12,7 @@ export function Drawer() {
       }}
     >
       <DrawerNavigator.Screen name="Home" component={Home} />
-      <DrawerNavigator.Screen
-        name="Test2"
-        component={() => (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Text>Test</Text>
-          </View>
-        )}
-      />
+      <DrawerNavigator.Screen name="Test2" component={Home} />
     </DrawerNavigator.Navigator>
   );
 }

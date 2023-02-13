@@ -3,12 +3,11 @@ import { MapPin, SpeakerHigh } from 'phosphor-react-native';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useTheme } from 'styled-components';
 import styled from 'styled-components/native';
-
-import { IconButton } from './IconButton';
+import { Shadow } from 'react-native-shadow-2';
+import { IconButton } from '../atoms/iconButton';
 
 const FooterWrapper = styled(View).attrs({})`
   background-color: white;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   height: ${({ theme }) => theme.bottomSheetFooter.height}px;
   padding: 0 16px;
   padding-top: 24px;
@@ -29,18 +28,20 @@ const MyWazeText = styled(Text).attrs({})`
   margin-left: 6px;
 `;
 
-export function HomeFooter({ animatedFooterPosition }) {
+export function HomeBottomSheetFooter({ animatedFooterPosition }) {
   const { colors } = useTheme();
 
   return (
     <BottomSheetFooter animatedFooterPosition={animatedFooterPosition}>
-      <FooterWrapper>
-        <MyWazeWrapper>
-          <MapPin weight="fill" size={24} color={colors.gray[500]} />
-          <MyWazeText>My Waze</MyWazeText>
-        </MyWazeWrapper>
-        <IconButton icon={SpeakerHigh} color={colors.secondary} />
-      </FooterWrapper>
+      <Shadow stretch offset={[0, 3]} distance={10}>
+        <FooterWrapper>
+          <MyWazeWrapper>
+            <MapPin weight="fill" size={24} color={colors.gray[500]} />
+            <MyWazeText>My Waze</MyWazeText>
+          </MyWazeWrapper>
+          <IconButton icon={SpeakerHigh} color={colors.secondary} />
+        </FooterWrapper>
+      </Shadow>
     </BottomSheetFooter>
   );
 }

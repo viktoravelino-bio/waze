@@ -1,24 +1,25 @@
 import {
-  BottomSheetFooter,
   BottomSheetView,
   default as BottomSheetRoot,
   useBottomSheetDynamicSnapPoints,
 } from '@gorhom/bottom-sheet';
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
+
 import { FlatList, StyleSheet, View } from 'react-native';
-import { SearchInput } from './SearchInput';
-import { RecentSearchItem } from './RecentSearchItem';
-
 import { useTheme } from 'styled-components';
-import { HomeFooter } from './HomeFooter';
+import { HomeBottomSheetFooter } from './HomeBottomSheetFooter';
+import { RecentSearchItem } from '../RecentSearchItem';
 
-const initialSnapPoints = ['25%', 'CONTENT_HEIGHT'];
+import { HomeBottomSheetBackground } from './HomeBottomSheetBackground';
+import { SearchInput } from '../atoms/searchInput';
 
-export function BottomSheet() {
+const initialSnapPoints = ['25%', '50%', 'CONTENT_HEIGHT'];
+
+export function HomeBottomSheet() {
   const bottomSheetRef = useRef(null);
 
   const {
-    bottomSheetFooter: { height },
+    bottomSheetFooter: { height: bottomSheetFooterHeight },
   } = useTheme();
 
   const {
@@ -28,10 +29,6 @@ export function BottomSheet() {
     handleContentLayout,
   } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
 
-  const handleSheetChanges = useCallback((index) => {
-    console.log('handleSheetChanges', index);
-  }, []);
-
   return (
     <BottomSheetRoot
       ref={bottomSheetRef}
@@ -39,11 +36,15 @@ export function BottomSheet() {
       snapPoints={animatedSnapPoints}
       handleHeight={animatedHandleHeight}
       contentHeight={animatedContentHeight}
-      onChange={handleSheetChanges}
-      footerComponent={HomeFooter}
+      footerComponent={HomeBottomSheetFooter}
+      backgroundComponent={HomeBottomSheetBackground}
+      backgroundStyle={{ backgroundColor: 'white' }}
     >
       <BottomSheetView
-        style={[styles.contentContainer, { paddingBottom: height }]}
+        style={[
+          styles.contentContainer,
+          { paddingBottom: bottomSheetFooterHeight },
+        ]}
         onLayout={handleContentLayout}
       >
         <SearchInput size="small" style={{ width: '94%' }} />
@@ -51,10 +52,16 @@ export function BottomSheet() {
         <FlatList
           scrollEnabled={false}
           data={[{ key: 'a' }, { key: 'b' }, { key: 'c' }, { key: 'd' }]}
-          renderItem={({ item }) => <RecentSearchItem />}
+          renderItem={({ item }) => <RecentSearchItem {...item} />}
           keyExtractor={(item) => item.key}
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-          style={{ paddingTop: 30, width: '100%', paddingBottom: 30 }}
+          style={{
+            width: '100%',
+          }}
+          contentContainerStyle={{
+            paddingTop: 30,
+            paddingBottom: 30,
+          }}
         />
       </BottomSheetView>
     </BottomSheetRoot>
@@ -66,5 +73,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 12,
     alignItems: 'center',
+    // backgroundColor: 'red',
   },
 });
