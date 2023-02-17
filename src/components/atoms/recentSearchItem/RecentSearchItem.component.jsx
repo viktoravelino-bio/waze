@@ -1,29 +1,11 @@
-import { Text, TouchableOpacity, View } from 'react-native';
-import { CaretRight } from 'phosphor-react-native';
-import styled from 'styled-components/native';
+import { Text, View } from 'react-native';
 import { useTheme } from 'styled-components';
 import { Shadow } from 'react-native-shadow-2';
-
-const RecentSearchItemWrapper = styled(TouchableOpacity).attrs({})`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 8px;
-  padding: 12px;
-  background-color: white;
-`;
-
-const IconContainer = styled(View).attrs({})`
-  background-color: ${({ theme }) => theme.colors.secondary};
-  border-radius: 10px;
-  padding: 2px;
-`;
-
-const IconStyled = styled(CaretRight).attrs({
-  size: 12,
-  color: 'white',
-  weight: 'bold',
-})``;
+import {
+  IconContainer,
+  IconStyled,
+  RecentSearchItemWrapper,
+} from './RecentSearchItem.styles';
 
 export function RecentSearchItem() {
   const { colors } = useTheme();

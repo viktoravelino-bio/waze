@@ -1,14 +1,14 @@
 import { Text, View } from 'react-native';
-import { BottomSheet } from '../components/atoms/bottomSheet';
 
 import { Map } from '../components/Map';
+import { HomeBottomSheet } from '../components/molecules/homeBottomSheet';
 
 export function Home() {
   return (
     <View style={{ flex: 1 }}>
       <Map />
 
-      <BottomSheet />
+      <HomeBottomSheet />
     </View>
   );
 }

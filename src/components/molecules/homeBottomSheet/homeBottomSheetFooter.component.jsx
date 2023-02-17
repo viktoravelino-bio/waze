@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { useTheme } from 'styled-components';
 import styled from 'styled-components/native';
 import { Shadow } from 'react-native-shadow-2';
-import { IconButton } from '../atoms/iconButton';
+import { IconButton } from '../../atoms/iconButton';
 
 const FooterWrapper = styled(View).attrs({})`
   background-color: white;

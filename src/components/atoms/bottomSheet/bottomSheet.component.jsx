@@ -2,14 +2,15 @@ import BottomSheetBase, {
   BottomSheetView,
   useBottomSheetDynamicSnapPoints,
 } from '@gorhom/bottom-sheet';
+
 import { forwardRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'styled-components';
 
 export function BottomSheetComponent(
   {
-    snapPoints = ['50%', 'CONTENT_HEIGHT'],
-    index = 1,
+    snapPoints = ['50%'],
+    index = 0,
     footerComponent = null,
     backgroundComponent = null,
     contentContainerStyle = {},
@@ -26,7 +27,7 @@ export function BottomSheetComponent(
     animatedSnapPoints,
     animatedContentHeight,
     handleContentLayout,
-  } = useBottomSheetDynamicSnapPoints(snapPoints);
+  } = useBottomSheetDynamicSnapPoints([...snapPoints, 'CONTENT_HEIGHT']);
 
   return (
     <BottomSheetBase
@@ -44,7 +45,10 @@ export function BottomSheetComponent(
       <BottomSheetView
         style={[
           styles.contentContainer,
-          { paddingBottom: bottomSheetFooterHeight, ...contentContainerStyle },
+          {
+            paddingBottom: !!footerComponent ? bottomSheetFooterHeight : 0,
+            ...contentContainerStyle,
+          },
         ]}
         onLayout={handleContentLayout}
       >
@@ -58,7 +62,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     paddingTop: 12,
-    alignItems: 'center',
+    // alignItems: 'center',
     // backgroundColor: 'red',
   },
 });

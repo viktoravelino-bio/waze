@@ -8,6 +8,9 @@ export const SearchInputWrapper = styled(View).attrs({})`
   background-color: ${({ theme }) => theme.input.colors.backgroundColor};
   border-radius: 1000px;
   padding: 0px 16px;
+  align-self: center;
+  width: 100%;
+  flex: 1;
 `;
 
 export const TextInputStyled = styled(TextInput).attrs(({ theme }) => ({

@@ -37,6 +37,7 @@ export function Speedometer({ speed = 0, unit = 'km/h' }) {
               fontSize: 22,
               marginBottom: -3,
               marginTop: -2,
+              fontWeight: 'bold',
             }}
           >
             {speed}
@@ -45,7 +46,6 @@ export function Speedometer({ speed = 0, unit = 'km/h' }) {
             style={{
               color: 'white',
               fontSize: 12,
-              fontWeight: 'bold',
             }}
           >
             {unit}
