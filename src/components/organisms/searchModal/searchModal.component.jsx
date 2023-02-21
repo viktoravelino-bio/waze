@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { CaretLeft } from 'phosphor-react-native';
-import { View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { useTheme } from 'styled-components';
 import { SearchInput } from '../../atoms/searchInput';
 import { IconButton } from '../../atoms/iconButton';
@@ -10,6 +10,7 @@ import { ModalContainer, ModalHeader, SearchList } from './searchModal.styles';
 import { useEffect, useState } from 'react';
 import { useSearchAddress } from '../../../hooks/use-search-address';
 import { useDebouncedValue } from '@mantine/hooks';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const list_type = {
   favorite: 'favorite',
@@ -35,6 +36,7 @@ export function SearchModal() {
   const [searchValue, setSearchValue] = useState('');
   const [searchedResults, setSearchedResults] = useState([]);
   const [debouncedSearchValue] = useDebouncedValue(searchValue, 500);
+  const { bottom } = useSafeAreaInsets();
 
   useEffect(() => {
     async function search() {
@@ -74,6 +76,7 @@ export function SearchModal() {
           data={searchedResults.length > 0 ? searchedResults : placeholderList}
           renderItem={SearchListItem}
           keyExtractor={({ label, place_id }) => place_id ?? label}
+          paddingBottom={bottom}
         />
       </View>
     </ModalContainer>

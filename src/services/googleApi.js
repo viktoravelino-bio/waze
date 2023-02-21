@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const api = axios.create({
+export const googleApi = axios.create({
   params: {
     key: 'AIzaSyBVJOttEAUF-PLuXMlZR7sSnJo10CUoD0c',
   },

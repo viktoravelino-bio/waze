@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { api } from '../components/lib/api';
+import { googleApi } from '../services/googleApi';
 import { useDistanceTime } from './use-distance-time';
 
 const baseUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
@@ -190,7 +190,7 @@ export function useSearchAddress() {
   //     if (!addressString || addressString.length < 3)
   //       return Promise.resolve([]);
 
-  //     const response = await api
+  //     const response = await googleApi
   //       .get(baseUrl, {
   //         params: {
   //           input: addressString,
@@ -234,7 +234,7 @@ export function useSearchAddress() {
   //       predictionsWithDistance.sort((a, b) => a.distance > b.distance) || []
   //     );
   //   },
-  //   [api, baseUrl]
+  //   [googleApi, baseUrl]
   // );
 
   return {

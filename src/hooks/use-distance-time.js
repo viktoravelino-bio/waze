@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { api } from '../components/lib/api';
+import { googleApi } from '../services/googleApi';
 
 const distanceUrl = 'https://maps.googleapis.com/maps/api/distancematrix/json';
 
@@ -8,7 +8,7 @@ export function useDistanceTime() {
     async ({ origin, destination }) => {
       if (!origin || !destination) return Promise.resolve([]);
 
-      const response = await api
+      const response = await googleApi
         .get(distanceUrl, {
           params: {
             origins: origin,
@@ -29,7 +29,7 @@ export function useDistanceTime() {
         duration: info.duration.value,
       };
     },
-    [api, distanceUrl]
+    [googleApi, distanceUrl]
   );
 
   return { calculateDistanceTime };

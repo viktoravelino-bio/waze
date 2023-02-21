@@ -14,12 +14,13 @@ export const ModalHeader = styled(View).attrs({})`
   padding: 12px 10px;
 `;
 
-export const SearchList = styled(FlatList).attrs({
+export const SearchList = styled(FlatList).attrs(({ paddingBottom }) => ({
   contentContainerStyle: {
     backgroundColor: 'white',
     minHeigh: '100%',
+    paddingBottom: paddingBottom ? paddingBottom : 0,
     // flex: 1,
   },
-})`
+}))`
   padding-top: 1px;
 `;

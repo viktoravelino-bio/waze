@@ -1,10 +1,13 @@
 import { BottomSheetFooter } from '@gorhom/bottom-sheet';
-import { MapPin, SpeakerHigh } from 'phosphor-react-native';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { SpeakerHigh } from 'phosphor-react-native';
+import { View } from 'react-native';
 import { useTheme } from 'styled-components';
 import styled from 'styled-components/native';
 import { Shadow } from 'react-native-shadow-2';
 import { IconButton } from '../../atoms/iconButton';
+import { Button } from '../../atoms/button';
+
+import MapPin from '../../../assets/MapPin.svg';
 
 const FooterWrapper = styled(View).attrs({})`
   background-color: white;
@@ -16,18 +19,6 @@ const FooterWrapper = styled(View).attrs({})`
   justify-content: space-between;
 `;
 
-const MyWazeWrapper = styled(TouchableOpacity).attrs({})`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const MyWazeText = styled(Text).attrs({})`
-  font-size: 18px;
-  color: ${({ theme }) => theme.colors.gray[500]};
-  font-weight: 600;
-  margin-left: 6px;
-`;
-
 export function HomeBottomSheetFooter({ animatedFooterPosition }) {
   const { colors } = useTheme();
 
@@ -35,10 +26,7 @@ export function HomeBottomSheetFooter({ animatedFooterPosition }) {
     <BottomSheetFooter animatedFooterPosition={animatedFooterPosition}>
       <Shadow stretch offset={[0, 3]} distance={10}>
         <FooterWrapper>
-          <MyWazeWrapper>
-            <MapPin weight="fill" size={24} color={colors.gray[500]} />
-            <MyWazeText>My Waze</MyWazeText>
-          </MyWazeWrapper>
+          <Button label="My Waze" icon={MapPin} />
           <IconButton icon={SpeakerHigh} color={colors.secondary} />
         </FooterWrapper>
       </Shadow>

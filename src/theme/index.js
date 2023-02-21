@@ -1,9 +1,14 @@
+export const colors = {
+  primary: '#478dff',
+  secondary: '#478dff',
+  gray: {
+    500: '#525252',
+  },
+};
+
 export default {
   colors: {
-    secondary: '#478dff',
-    gray: {
-      500: '#525252',
-    },
+    ...colors,
   },
   iconButton: {
     size: {
