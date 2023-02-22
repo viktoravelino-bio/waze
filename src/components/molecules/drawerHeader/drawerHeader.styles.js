@@ -1,12 +1,12 @@
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { Image, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 import styled from 'styled-components';
-import { HEADER_SIZE } from '../../../contants';
+import { HEADER_SIZE } from '../../../constants';
 
 export const DrawerHeaderAnimatedWrapper = styled(Animated.View).attrs({})`
   position: absolute;
-  top: ${({ top }) => top + 10 || 0}px;
+  top: ${({ top }) => top - 5 || 0}px;
   left: 0;
   right: 0;
   height: ${HEADER_SIZE}px;

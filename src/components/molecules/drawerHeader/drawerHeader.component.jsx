@@ -5,7 +5,7 @@ import {
 } from 'react-native-reanimated';
 import { IconButton } from '../../atoms/iconButton';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { HEADER_SIZE } from '../../../contants';
+import { HEADER_SIZE } from '../../../constants';
 import { Gear, Power, CaretRight } from 'phosphor-react-native';
 import {
   DrawerHeaderAnimatedWrapper,
@@ -18,17 +18,31 @@ import {
 } from './drawerHeader.styles';
 
 import { useTheme } from 'styled-components';
+import { Platform } from 'react-native';
 
 export function DrawerHeader({ y, userName, handleUserNamePress }) {
   const { top: insetTop } = useSafeAreaInsets();
   const { colors } = useTheme();
 
-  const pushDownAnimation = useAnimatedStyle(() => {
+  const heightAnimated = useAnimatedStyle(() => {
     return {
       height: interpolate(
         y.value,
-        [-1000, HEADER_SIZE],
-        [1000, 0],
+        [-1000, 0, HEADER_SIZE],
+        [1000, HEADER_SIZE, 0],
+        Extrapolation.CLAMP
+      ),
+    };
+  });
+
+  const scrollPointToChangeZIndex = Platform.OS === 'ios' ? 40 : -80;
+
+  const zIndexAnimated = useAnimatedStyle(() => {
+    return {
+      zIndex: interpolate(
+        y.value,
+        [0, scrollPointToChangeZIndex, HEADER_SIZE],
+        [1, 1, 0],
         Extrapolation.CLAMP
       ),
     };
@@ -47,8 +61,9 @@ export function DrawerHeader({ y, userName, handleUserNamePress }) {
 
   return (
     <DrawerHeaderAnimatedWrapper
+      pointerEvents="box-none"
       top={insetTop}
-      style={[pushDownAnimation, opacityAnimated]}
+      style={[heightAnimated, opacityAnimated, zIndexAnimated]}
     >
       <DrawerHeaderContent>
         <DrawerHeaderButtonsWrapper>
@@ -62,7 +77,7 @@ export function DrawerHeader({ y, userName, handleUserNamePress }) {
               uri: 'https://avatars.githubusercontent.com/u/5464353?v=4',
             }}
           />
-          <RedirectToUserPageButton delayPressIn={1} onPressIn={()=>console.log("hu")}>
+          <RedirectToUserPageButton onPress={handleUserNamePress}>
             <RedirectToUserPageButtonText>
               {userName || 'User Name'}
             </RedirectToUserPageButtonText>

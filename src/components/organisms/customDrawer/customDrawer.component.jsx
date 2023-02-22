@@ -1,23 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { useRef } from 'react';
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
+
 import Animated, {
-  Extrapolation,
-  interpolate,
   useAnimatedScrollHandler,
-  useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
 
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
-import { backgroundColor } from 'styled-system';
-import { HEADER_SIZE } from '../../../contants';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { HEADER_SIZE } from '../../../constants';
 import { SearchInput } from '../../atoms/searchInput';
 import { DrawerHeader } from '../../molecules/drawerHeader/drawerHeader.component';
 
 export function CustomDrawer(props) {
   const y = useSharedValue(0);
+  const ref = useRef(null);
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -26,41 +22,18 @@ export function CustomDrawer(props) {
     },
   });
 
-  const heightAnimated = useAnimatedStyle(() => {
-    return {
-      height: interpolate(
-        y.value,
-        [0, HEADER_SIZE],
-        [HEADER_SIZE, 0],
-        Extrapolation.CLAMP
-      ),
-    };
-  });
-
-  const opacityAnimated = useAnimatedStyle(() => {
-    return {
-      opacity: interpolate(
-        y.value,
-        [0, HEADER_SIZE],
-        [0, 1],
-        Extrapolation.CLAMP
-      ),
-    };
-  });
-
   return (
     <SafeAreaView style={{ flex: 1 }} {...props}>
       <DrawerHeader
-        {...{ y }}
-        userName="Viktor Avelino"
-        handleUserNamePress={() => console.log('text')}
+        {...{
+          y,
+          userName: 'Viktor Avelino',
+          handleUserNamePress: () => console.log('Navigate to user page'),
+        }}
       />
 
       <Animated.ScrollView
-      style={{
-
-        pointerEvents:"none"
-      }}
+        ref={ref}
         contentContainerStyle={{
           minHeight: '100%',
         }}
@@ -68,17 +41,18 @@ export function CustomDrawer(props) {
         scrollEventThrottle={16}
         stickyHeaderIndices={[1]}
       >
-        <Animated.View
-          style={[
-            {
+        {/* make space for the header */}
+        <TouchableWithoutFeedback
+          onPress={() => {
+            ref.current.scrollTo({ x: 0, y: 0, animated: true });
+          }}
+        >
+          <View
+            style={{
               height: HEADER_SIZE,
-              pointerEvents: 'none',
-              // backgroundColor: 'white',
-            },
-
-            // opacityAnimated,
-          ]}
-        />
+            }}
+          />
+        </TouchableWithoutFeedback>
 
         <View style={{ backgroundColor: 'white', paddingVertical: 10 }}>
           <SearchInput
@@ -108,6 +82,7 @@ export function CustomDrawer(props) {
             </View>
           );
         })}
+
         <View
           style={{
             height: '100%',
