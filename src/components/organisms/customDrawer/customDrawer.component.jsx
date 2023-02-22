@@ -8,6 +8,7 @@ import Animated, {
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HEADER_SIZE } from '../../../constants';
+import { ScreensNames } from '../../../navigation/MainStack';
 import { SearchInput } from '../../atoms/searchInput';
 import { DrawerHeader } from '../../molecules/drawerHeader/drawerHeader.component';
 
@@ -60,7 +61,7 @@ export function CustomDrawer(props) {
             editable={false}
             onPressIn={() => {
               props.navigation.closeDrawer();
-              props.navigation.navigate('SearchModal');
+              props.navigation.navigate(ScreensNames.SearchModal);
             }}
           />
         </View>

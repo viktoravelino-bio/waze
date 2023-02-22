@@ -5,6 +5,7 @@ import { BottomSheet } from '../../atoms/bottomSheet';
 import { HomeBottomSheetBackground } from '../homeBottomSheet/homeBottomSheetBackground.component';
 import { HomeBottomSheetFooter } from '../homeBottomSheet/homeBottomSheetFooter.component';
 import { useNavigation } from '@react-navigation/native';
+import { ScreensNames } from '../../../navigation/MainStack';
 
 export function HomeBottomSheet() {
   const { navigate } = useNavigation();
@@ -19,7 +20,7 @@ export function HomeBottomSheet() {
         style={{ width: '94%' }}
         editable={false}
         onPressIn={() => {
-          navigate('SearchModal');
+          navigate(ScreensNames.SearchModal);
         }}
       />
 
