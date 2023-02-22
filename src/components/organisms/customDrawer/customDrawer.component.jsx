@@ -1,20 +1,15 @@
-import { useRef } from 'react';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
-
-import Animated, {
+import {
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
-
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HEADER_SIZE } from '../../../constants';
-import { ScreensNames } from '../../../navigation/MainStack';
-import { SearchInput } from '../../atoms/searchInput';
+import { SearchListItem } from '../../atoms/searchListItem';
+import { DrawerContentWrapper } from '../../molecules/drawerContentWrapper';
 import { DrawerHeader } from '../../molecules/drawerHeader/drawerHeader.component';
 
 export function CustomDrawer(props) {
   const y = useSharedValue(0);
-  const ref = useRef(null);
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -24,73 +19,41 @@ export function CustomDrawer(props) {
   });
 
   return (
-    <SafeAreaView style={{ flex: 1 }} {...props}>
+    <SafeAreaView style={{ flex: 1 }} edges={['top']} {...props}>
       <DrawerHeader
         {...{
           y,
-          userName: 'Viktor Avelino',
-          handleUserNamePress: () => console.log('Navigate to user page'),
+          user: {
+            name: 'John Doe',
+            avatar: 'https://picsum.photos/200',
+          },
+          navigation: props.navigation,
+          headerSize: HEADER_SIZE,
         }}
       />
 
-      <Animated.ScrollView
-        ref={ref}
-        contentContainerStyle={{
-          minHeight: '100%',
+      <DrawerContentWrapper
+        {...{
+          scrollHandler,
+          headerSize: HEADER_SIZE,
+          navigation: props.navigation,
         }}
-        onScroll={scrollHandler}
-        scrollEventThrottle={16}
-        stickyHeaderIndices={[1]}
       >
-        {/* make space for the header */}
-        <TouchableWithoutFeedback
-          onPress={() => {
-            ref.current.scrollTo({ x: 0, y: 0, animated: true });
-          }}
-        >
-          <View
-            style={{
-              height: HEADER_SIZE,
-            }}
-          />
-        </TouchableWithoutFeedback>
-
-        <View style={{ backgroundColor: 'white', paddingVertical: 10 }}>
-          <SearchInput
-            style={{ height: 46, width: '94%' }}
-            editable={false}
-            onPressIn={() => {
-              props.navigation.closeDrawer();
-              props.navigation.navigate(ScreensNames.SearchModal);
-            }}
-          />
-        </View>
-
-        {/* main content goes here */}
-        {Array.from({ length: 100 }).map((_, index) => {
-          return (
-            <View
-              key={index}
-              style={{
-                height: 50,
-                backgroundColor: 'white',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderWidth: 1,
-              }}
-            >
-              <Text>{index}</Text>
-            </View>
-          );
-        })}
-
-        <View
-          style={{
-            height: '100%',
-            backgroundColor: 'white',
+        <SearchListItem
+          item={{
+            type: 'address',
+            label: 'Home',
+            subLabel: '123 Dundas St',
           }}
         />
-      </Animated.ScrollView>
+        <SearchListItem
+          item={{
+            type: 'address',
+            label: 'Work',
+            subLabel: '123 Dundas St',
+          }}
+        />
+      </DrawerContentWrapper>
     </SafeAreaView>
   );
 }

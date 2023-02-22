@@ -1,4 +1,5 @@
-import { Button, SafeAreaView } from 'react-native';
+import {  SafeAreaView, Text } from 'react-native';
+import { Button } from '../components/atoms/button';
 
 export function SettingsScreen({ navigation }) {
   return (
@@ -6,7 +7,7 @@ export function SettingsScreen({ navigation }) {
       style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
     >
       <Text>Settings Screen</Text>
-      <Button label="Back" onPress={() => navigation.goBack()} />
+      <Button label='Label' onPress={() => navigation.goBack()} />
     </SafeAreaView>
   );
 }

@@ -2,6 +2,24 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { CustomDrawer } from '../components/organisms/customDrawer';
 import { Home } from '../screens/Home';
 
+export const DrawerScreensNames = {
+  Home: 'Home',
+  Test2: 'Test2',
+};
+
+const DrawerScreens = [
+  {
+    name: DrawerScreensNames.Home,
+    component: Home,
+    options: {},
+  },
+  {
+    name: DrawerScreensNames.Test2,
+    component: Home,
+    options: {},
+  },
+];
+
 const DrawerNavigator = createDrawerNavigator();
 
 export function Drawer() {
@@ -15,8 +33,16 @@ export function Drawer() {
       }}
       drawerContent={(props) => <CustomDrawer {...props} />}
     >
-      <DrawerNavigator.Screen name="Home" component={Home} />
-      <DrawerNavigator.Screen name="Test2" component={Home} />
+      {DrawerScreens.map((screen) => (
+        <DrawerNavigator.Screen
+          key={screen.name}
+          name={screen.name}
+          component={screen.component}
+          options={screen.options}
+        />
+      ))}
+      {/* <DrawerNavigator.Screen name="Home" component={Home} /> */}
+      {/* <DrawerNavigator.Screen name="Test2" component={Home} /> */}
     </DrawerNavigator.Navigator>
   );
 }

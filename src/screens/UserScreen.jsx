@@ -1,4 +1,6 @@
+import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native';
+import { Button } from '../components/atoms/button';
 
 export function UserScreen({ navigation }) {
   return (

@@ -22,7 +22,9 @@ const Screens = [
   {
     name: ScreensNames.Settings,
     component: SettingsScreen,
-    options: {},
+    options: {
+      presentation:"containedModal"
+    },
   },
   {
     name: ScreensNames.UserScreen,
@@ -37,8 +39,6 @@ const Screens = [
     },
   },
 ];
-
-console.log(JSON.stringify(ScreensNames, null, 2));
 
 const StackNavigator = createNativeStackNavigator();
 

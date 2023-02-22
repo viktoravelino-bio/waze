@@ -5,7 +5,6 @@ import {
 } from 'react-native-reanimated';
 import { IconButton } from '../../atoms/iconButton';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { HEADER_SIZE } from '../../../constants';
 import { Gear, Power, CaretRight } from 'phosphor-react-native';
 import {
   DrawerHeaderAnimatedWrapper,
@@ -19,17 +18,20 @@ import {
 
 import { useTheme } from 'styled-components';
 import { Platform } from 'react-native';
+import { ScreensNames } from '../../../navigation/MainStack';
 
-export function DrawerHeader({ y, userName, handleUserNamePress }) {
+export function DrawerHeader({ y, user, navigation, headerSize = 0 }) {
   const { top: insetTop } = useSafeAreaInsets();
   const { colors } = useTheme();
+
+  const { name, avatar } = user;
 
   const heightAnimated = useAnimatedStyle(() => {
     return {
       height: interpolate(
         y.value,
-        [-1000, 0, HEADER_SIZE],
-        [1000, HEADER_SIZE, 0],
+        [-1000, 0, headerSize],
+        [1000, headerSize, 0],
         Extrapolation.CLAMP
       ),
     };
@@ -41,7 +43,7 @@ export function DrawerHeader({ y, userName, handleUserNamePress }) {
     return {
       zIndex: interpolate(
         y.value,
-        [0, scrollPointToChangeZIndex, HEADER_SIZE],
+        [0, scrollPointToChangeZIndex, headerSize],
         [1, 1, 0],
         Extrapolation.CLAMP
       ),
@@ -52,7 +54,7 @@ export function DrawerHeader({ y, userName, handleUserNamePress }) {
     return {
       opacity: interpolate(
         y.value,
-        [0, HEADER_SIZE],
+        [0, headerSize],
         [1, 0],
         Extrapolation.CLAMP
       ),
@@ -67,19 +69,29 @@ export function DrawerHeader({ y, userName, handleUserNamePress }) {
     >
       <DrawerHeaderContent>
         <DrawerHeaderButtonsWrapper>
-          <IconButton icon={Gear} color={colors.primary} />
-          <IconButton icon={Power} color={colors.primary} />
+          <IconButton
+            icon={Gear}
+            color={colors.primary}
+            onPress={() => navigation?.navigate(ScreensNames.Settings)}
+          />
+          <IconButton
+            icon={Power}
+            color={colors.primary}
+            onPress={() => console.log('action')}
+          />
         </DrawerHeaderButtonsWrapper>
 
         <DrawerHeaderUserInfoWrapper>
           <UserAvatar
             source={{
-              uri: 'https://avatars.githubusercontent.com/u/5464353?v=4',
+              uri: avatar,
             }}
           />
-          <RedirectToUserPageButton onPress={handleUserNamePress}>
+          <RedirectToUserPageButton
+            onPress={() => navigation?.navigate(ScreensNames.UserScreen)}
+          >
             <RedirectToUserPageButtonText>
-              {userName || 'User Name'}
+              {name || 'User Name'}
             </RedirectToUserPageButtonText>
             <CaretRight size={18} weight="bold" />
           </RedirectToUserPageButton>
