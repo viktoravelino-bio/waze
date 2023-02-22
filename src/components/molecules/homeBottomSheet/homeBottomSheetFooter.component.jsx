@@ -8,6 +8,7 @@ import { IconButton } from '../../atoms/iconButton';
 import { Button } from '../../atoms/button';
 
 import MapPin from '../../../assets/MapPin.svg';
+import { useNavigation, DrawerActions } from '@react-navigation/native';
 
 const FooterWrapper = styled(View).attrs({})`
   background-color: white;
@@ -21,12 +22,17 @@ const FooterWrapper = styled(View).attrs({})`
 
 export function HomeBottomSheetFooter({ animatedFooterPosition }) {
   const { colors } = useTheme();
+  const { dispatch } = useNavigation();
 
   return (
     <BottomSheetFooter animatedFooterPosition={animatedFooterPosition}>
       <Shadow stretch offset={[0, 3]} distance={10}>
         <FooterWrapper>
-          <Button label="My Waze" icon={MapPin} />
+          <Button
+            label="My Waze"
+            icon={MapPin}
+            onPress={() => dispatch(DrawerActions.openDrawer())}
+          />
           <IconButton icon={SpeakerHigh} color={colors.secondary} />
         </FooterWrapper>
       </Shadow>

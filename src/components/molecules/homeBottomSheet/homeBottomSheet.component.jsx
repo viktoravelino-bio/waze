@@ -16,11 +16,9 @@ export function HomeBottomSheet() {
       backgroundComponent={HomeBottomSheetBackground}
     >
       <SearchInput
-        size="small"
         style={{ width: '94%' }}
         editable={false}
         onPressIn={() => {
-          console.log('open modal');
           navigate('SearchModal');
         }}
       />

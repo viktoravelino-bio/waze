@@ -10,7 +10,8 @@ export const SearchInputWrapper = styled(View).attrs({})`
   padding: 0px 16px;
   align-self: center;
   width: 100%;
-  flex: 1;
+  /* flex: 1; */
+
 `;
 
 export const TextInputStyled = styled(TextInput).attrs(({ theme }) => ({
