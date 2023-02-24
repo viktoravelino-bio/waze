@@ -1,11 +1,11 @@
-import { FlatList, TextInput, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { RecentSearchItem } from '../../atoms/recentSearchItem';
 import { SearchInput } from '../../atoms/searchInput';
 import { BottomSheet } from '../../atoms/bottomSheet';
 import { HomeBottomSheetBackground } from '../homeBottomSheet/homeBottomSheetBackground.component';
 import { HomeBottomSheetFooter } from '../homeBottomSheet/homeBottomSheetFooter.component';
 import { useNavigation } from '@react-navigation/native';
-import { ScreensNames } from '../../../navigation/MainStack';
+import { ScreensNames } from '../../../navigation/MainStackScreens';
 
 export function HomeBottomSheet() {
   const { navigate } = useNavigation();

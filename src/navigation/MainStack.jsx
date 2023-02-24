@@ -1,19 +1,14 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SearchModal } from '../components/organisms/searchModal/searchModal.component';
-import { SettingsScreen } from '../screens/SettingsScreen';
-
-import { Test } from '../screens/Test';
-import { UserScreen } from '../screens/UserScreen';
+import {
+  SearchAddressModal,
+  SettingsScreen,
+  UserScreen,
+  Test,
+} from '../screens';
 import { Drawer } from './Drawer';
+import { ScreensNames } from './MainStackScreens';
 
-export const ScreensNames = {
-  Drawer: 'Drawer',
-  Settings: 'Settings',
-  UserScreen: 'UserScreen',
-  SearchModal: 'SearchModal',
-};
-
-const Screens = [
+export const Screens = [
   {
     name: ScreensNames.Drawer,
     component: Drawer,
@@ -23,7 +18,7 @@ const Screens = [
     name: ScreensNames.Settings,
     component: SettingsScreen,
     options: {
-      presentation:"containedModal"
+      presentation: 'containedModal',
     },
   },
   {
@@ -33,7 +28,7 @@ const Screens = [
   },
   {
     name: ScreensNames.SearchModal,
-    component: SearchModal,
+    component: SearchAddressModal,
     options: {
       presentation: 'containedTransparentModal',
     },

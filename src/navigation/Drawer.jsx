@@ -1,11 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { CustomDrawer } from '../components/organisms/customDrawer';
-import { Home } from '../screens/Home';
-
-export const DrawerScreensNames = {
-  Home: 'Home',
-  Test2: 'Test2',
-};
+import { Home } from '../screens';
+import { DrawerScreensNames } from './DrawerScreens';
 
 const DrawerScreens = [
   {

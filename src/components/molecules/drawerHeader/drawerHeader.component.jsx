@@ -18,7 +18,7 @@ import {
 
 import { useTheme } from 'styled-components';
 import { Platform } from 'react-native';
-import { ScreensNames } from '../../../navigation/MainStack';
+import { ScreensNames } from '../../../navigation/MainStackScreens';
 
 export function DrawerHeader({ y, user, navigation, headerSize = 0 }) {
   const { top: insetTop } = useSafeAreaInsets();

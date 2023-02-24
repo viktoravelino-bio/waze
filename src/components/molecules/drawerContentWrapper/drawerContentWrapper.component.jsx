@@ -2,7 +2,8 @@ import { useRef } from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ScreensNames } from '../../../navigation/MainStack';
+import { ScreensNames } from '../../../navigation/MainStackScreens';
+
 import { SearchInput } from '../../atoms/searchInput';
 
 export function DrawerContentWrapper({
