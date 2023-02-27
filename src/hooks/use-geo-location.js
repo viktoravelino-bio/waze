@@ -72,7 +72,7 @@ export function useGeoLocation() {
           distanceInterval: 1,
         },
         (location) => {
-          console.log('location update ', JSON.stringify(location, null, 2));
+          // console.log('location update ', JSON.stringify(location, null, 2));
           setCurrentLocation({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,

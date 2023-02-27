@@ -6,7 +6,9 @@ import MapView, {
   PROVIDER_GOOGLE,
   Animated,
 } from 'react-native-maps';
+import { useLocationContext } from '../context/locationContext';
 import { useGeoLocation } from '../hooks/use-geo-location';
+import { useGPSNavigation } from '../hooks/use-gps-navigation';
 
 const DEFAULT_DELTA = {
   latitudeDelta: 0.0922,
@@ -17,6 +19,10 @@ const CAMERA_ANGLE = 120;
 
 export function Map() {
   const _map = useRef(null);
+  const { } = useGPSNavigation({
+    mapRef: _map,
+  });
+
   const { currentLocation } = useGeoLocation();
 
   const [prevLocation, setPrevLocation] = useState(null);
