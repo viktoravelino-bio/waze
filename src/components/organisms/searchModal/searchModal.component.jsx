@@ -1,16 +1,17 @@
+import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { CaretLeft } from 'phosphor-react-native';
-import { FlatList, View } from 'react-native';
+import { View } from 'react-native';
 import { useTheme } from 'styled-components';
 import { SearchInput } from '../../atoms/searchInput';
 import { IconButton } from '../../atoms/iconButton';
 import { Shadow } from 'react-native-shadow-2';
 import { SearchListItem } from '../../atoms/searchListItem';
 import { ModalContainer, ModalHeader, SearchList } from './searchModal.styles';
-import { useEffect, useState } from 'react';
 import { useSearchAddress } from '../../../hooks/use-search-address';
 import { useDebouncedValue } from '@mantine/hooks';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useLocationContext } from '../../../context/locationContext';
 
 const list_type = {
   favorite: 'favorite',
@@ -30,6 +31,7 @@ const placeholderList = [
 ];
 
 export function SearchModal() {
+  const { setSearchedAddress, setMapStatus } = useLocationContext();
   const { goBack } = useNavigation();
   const { colors } = useTheme();
   const { searchAddress } = useSearchAddress();
@@ -43,7 +45,6 @@ export function SearchModal() {
       const response = await searchAddress(debouncedSearchValue);
       setSearchedResults(response);
     }
-
     search();
   }, [debouncedSearchValue]);
 
@@ -74,7 +75,16 @@ export function SearchModal() {
 
         <SearchList
           data={searchedResults.length > 0 ? searchedResults : placeholderList}
-          renderItem={SearchListItem}
+          renderItem={({ item }) => (
+            <SearchListItem
+              {...{ item }}
+              onPress={(item) => {
+                setSearchedAddress(item);
+                setMapStatus('searching');
+                goBack();
+              }}
+            />
+          )}
           keyExtractor={({ label, place_id }) => place_id ?? label}
           paddingBottom={bottom}
         />

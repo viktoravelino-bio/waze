@@ -19,6 +19,7 @@ const TORONTO_COORDS = {
 export function useGeoLocation() {
   const [loadingLocation, setLoadingLocation] = useState(true);
   const [currentLocation, setCurrentLocation] = useState(TORONTO_COORDS);
+  const [regionOffset, setRegionOffset] = useState(-0.02);
   const [currentRegion, setCurrentRegion] = useState({
     ...TORONTO_COORDS,
     ...DEFAULT_DELTA,
@@ -124,5 +125,8 @@ export function useGeoLocation() {
     error,
     currentRegion,
     permission,
+    setRegionOffset,
+    regionOffset,
+    DEFAULT_DELTA,
   };
 }

@@ -6,3 +6,5 @@ export const list_item_type = {
 };
 
 export const HEADER_SIZE = 160;
+
+export const GOOGLE_API_KEY = 'AIzaSyBVJOttEAUF-PLuXMlZR7sSnJo10CUoD0c';

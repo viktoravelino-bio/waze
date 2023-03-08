@@ -27,5 +27,5 @@ export function useGPSNavigation({ mapRef }) {
     });
   }, []);
 
-  return {};
+  return { isNavigating };
 }

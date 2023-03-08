@@ -40,6 +40,11 @@ export function CustomDrawer(props) {
         }}
       >
         <SearchListItem
+          onPress={() => {
+            // setSearchedAddress(item);
+            // setMapStatus('searching');
+            props.navigation.goBack();
+          }}
           item={{
             type: 'address',
             label: 'Home',
@@ -47,6 +52,9 @@ export function CustomDrawer(props) {
           }}
         />
         <SearchListItem
+          onPress={() => {
+            props.navigation.goBack();
+          }}
           item={{
             type: 'address',
             label: 'Work',

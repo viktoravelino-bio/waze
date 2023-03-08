@@ -6,15 +6,19 @@ import { HomeBottomSheetBackground } from '../homeBottomSheet/homeBottomSheetBac
 import { HomeBottomSheetFooter } from '../homeBottomSheet/homeBottomSheetFooter.component';
 import { useNavigation } from '@react-navigation/native';
 import { ScreensNames } from '../../../navigation/MainStackScreens';
+import { useGeoLocation } from '../../../hooks/use-geo-location';
+import { useLocationContext } from '../../../context/locationContext';
 
 export function HomeBottomSheet() {
   const { navigate } = useNavigation();
+
   return (
     <BottomSheet
       snapPoints={['25%', '50%']}
       index={1}
       footerComponent={HomeBottomSheetFooter}
       backgroundComponent={HomeBottomSheetBackground}
+      onChange={(index) => {}}
     >
       <SearchInput
         style={{ width: '94%' }}

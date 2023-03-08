@@ -1,7 +1,7 @@
 import { TouchableOpacity } from 'react-native';
 import { Shadow } from 'react-native-shadow-2';
 
-import BackgroundSvg from '../assets/PinAction.svg';
+import BackgroundSvg from '../../../assets/PinAction.svg';
 
 export function PinPointButton() {
   return (

@@ -181,61 +181,61 @@ const data = [
 export function useSearchAddress() {
   const { calculateDistanceTime } = useDistanceTime();
 
-  const searchAddress = useCallback(async () => {
-    return Promise.resolve(data);
-  }, []);
+  // const searchAddress = useCallback(async () => {
+  //   return Promise.resolve(data);
+  // }, []);
 
-  // const searchAddress = useCallback(
-  //   async (addressString) => {
-  //     if (!addressString || addressString.length < 3)
-  //       return Promise.resolve([]);
+  const searchAddress = useCallback(
+    async (addressString) => {
+      if (!addressString || addressString.length < 3)
+        return Promise.resolve([]);
 
-  //     const response = await googleApi
-  //       .get(baseUrl, {
-  //         params: {
-  //           input: addressString,
-  //           location: '43.70789, -79.3992897',
-  //           radius: 50000,
-  //         },
-  //       })
-  //       .catch((err) => {
-  //         console.warn(
-  //           'Error while searching address: \n',
-  //           JSON.stringify(err.response, null, 2)
-  //         );
-  //       });
+      const response = await googleApi
+        .get(baseUrl, {
+          params: {
+            input: addressString,
+            location: '43.70789, -79.3992897',
+            radius: 50000,
+          },
+        })
+        .catch((err) => {
+          console.warn(
+            'Error while searching address: \n',
+            JSON.stringify(err.response, null, 2)
+          );
+        });
 
-  //     const predictionsWithNoDistance = response.data.predictions.map(
-  //       (prediction) => ({
-  //         place_id: prediction.place_id,
-  //         description: prediction.description,
-  //         subLabel: prediction.structured_formatting.secondary_text,
-  //         label: prediction.description,
-  //         type: 'address',
-  //       })
-  //     );
+      const predictionsWithNoDistance = response.data.predictions.map(
+        (prediction) => ({
+          place_id: prediction.place_id,
+          description: prediction.description,
+          subLabel: prediction.structured_formatting.secondary_text,
+          label: prediction.description,
+          type: 'address',
+        })
+      );
 
-  //     const predictionsWithDistance = await Promise.all(
-  //       predictionsWithNoDistance.map(async (prediction) => {
-  //         const { distance, duration } = await calculateDistanceTime({
-  //           origin: '43.70789, -79.3992897',
-  //           destination: 'place_id:' + prediction.place_id,
-  //         });
+      const predictionsWithDistance = await Promise.all(
+        predictionsWithNoDistance.map(async (prediction) => {
+          const { distance, duration } = await calculateDistanceTime({
+            origin: '43.70789, -79.3992897',
+            destination: 'place_id:' + prediction.place_id,
+          });
 
-  //         return {
-  //           ...prediction,
-  //           distance,
-  //           duration,
-  //         };
-  //       })
-  //     );
+          return {
+            ...prediction,
+            distance,
+            duration,
+          };
+        })
+      );
 
-  //     return (
-  //       predictionsWithDistance.sort((a, b) => a.distance > b.distance) || []
-  //     );
-  //   },
-  //   [googleApi, baseUrl]
-  // );
+      return (
+        predictionsWithDistance.sort((a, b) => a.distance > b.distance) || []
+      );
+    },
+    [googleApi, baseUrl]
+  );
 
   return {
     searchAddress,

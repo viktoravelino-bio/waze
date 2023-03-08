@@ -9,12 +9,12 @@ const LOCATION_PERMISSION_STATUS = {
 
 const DEFAULT_DELTA = {
   latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
+  longitudeDelta: -0.0302,
 };
 
 const DEFAULT_LOCATION = {
-  latitude: 43.65326,
-  longitude: -79.3831843,
+  latitude: 43.6793398,
+  longitude: -79.385167,
 };
 
 const LocationContext = createContext();
@@ -25,6 +25,12 @@ export function LocationProvider({ children }) {
     ...DEFAULT_LOCATION,
     ...DEFAULT_DELTA,
   });
+
+  const [searchedAddress, setSearchedAddress] = useState(null);
+
+  const [mapStatus, setMapStatus] = useState('idle'); //idle, navigating, searching
+
+  const [isNavigating, setIsNavigating] = useState(false);
 
   const {
     error,
@@ -54,7 +60,18 @@ export function LocationProvider({ children }) {
   }
 
   return (
-    <LocationContext.Provider value={{ prevLocation, location }}>
+    <LocationContext.Provider
+      value={{
+        prevLocation,
+        location,
+        isNavigating,
+        setIsNavigating,
+        mapStatus,
+        searchedAddress,
+        setSearchedAddress,
+        setMapStatus,
+      }}
+    >
       {children}
     </LocationContext.Provider>
   );

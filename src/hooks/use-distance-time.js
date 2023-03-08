@@ -25,8 +25,8 @@ export function useDistanceTime() {
       const info = response.data.rows[0].elements[0];
 
       return {
-        distance: info.distance.value,
-        duration: info.duration.value,
+        distance: info.distance?.value,
+        duration: info.duration?.value,
       };
     },
     [googleApi, distanceUrl]

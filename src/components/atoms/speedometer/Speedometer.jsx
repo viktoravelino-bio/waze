@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { Shadow } from 'react-native-shadow-2';
 
-import BackgroundSvg from '../assets/Speed.svg';
+import BackgroundSvg from '../../../assets/Speed.svg';
 
 export function Speedometer({ speed = 0, unit = 'km/h' }) {
   return (

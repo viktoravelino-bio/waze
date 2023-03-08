@@ -8,13 +8,13 @@ const icons_map = {
   address: MapPin,
 };
 
-export function SearchListItem({ item }) {
+export function SearchListItem({ item, onPress = () => {} }) {
   const { type, subLabel, label, distance } = item;
   const Icon = icons_map[type];
 
   return (
     <TouchableOpacity
-      onPress={() => console.log('pressed')}
+      onPress={() => onPress(item)}
       style={{
         flexDirection: 'row',
         alignItems: 'center',

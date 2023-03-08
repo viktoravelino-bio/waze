@@ -6,6 +6,8 @@ import BottomSheetBase, {
 import { forwardRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'styled-components';
+import { useGeoLocation } from '../../../hooks/use-geo-location';
+import { useGPSNavigation } from '../../../hooks/use-gps-navigation';
 
 export function BottomSheetComponent(
   {
@@ -15,13 +17,14 @@ export function BottomSheetComponent(
     backgroundComponent = null,
     contentContainerStyle = {},
     children,
+    ...props
   },
   ref
 ) {
   const {
     bottomSheetFooter: { height: bottomSheetFooterHeight },
   } = useTheme();
-
+  const { setRegionOffset } = useGeoLocation();
   const {
     animatedHandleHeight,
     animatedSnapPoints,
@@ -41,6 +44,7 @@ export function BottomSheetComponent(
         backgroundComponent,
         backgroundStyle: { backgroundColor: 'white' },
       })}
+      {...props}
     >
       <BottomSheetView
         style={[

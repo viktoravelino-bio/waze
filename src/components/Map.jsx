@@ -1,14 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
-import MapView, {
-  AnimatedRegion,
-  Marker,
-  PROVIDER_GOOGLE,
-  Animated,
-} from 'react-native-maps';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { Marker, PROVIDER_GOOGLE, Animated } from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
+import { GOOGLE_API_KEY } from '../constants';
 import { useLocationContext } from '../context/locationContext';
-import { useGeoLocation } from '../hooks/use-geo-location';
-import { useGPSNavigation } from '../hooks/use-gps-navigation';
+const { width, height } = Dimensions.get('window');
 
 const DEFAULT_DELTA = {
   latitudeDelta: 0.0922,
@@ -19,71 +15,67 @@ const CAMERA_ANGLE = 120;
 
 export function Map() {
   const _map = useRef(null);
-  const { } = useGPSNavigation({
-    mapRef: _map,
-  });
-
-  const { currentLocation } = useGeoLocation();
-
-  const [prevLocation, setPrevLocation] = useState(null);
-  // const [currentLocation, setCurrentLocation] = useState(location);
-  const [currentAngle, setCurrentAngle] = useState(CAMERA_ANGLE);
-
-  function changePosition({ latitude, longitude }) {
-    setPrevLocation(currentLocation);
-    // setCurrentLocation({ latitude, longitude });
-
-    updateMap();
-  }
-
-  function getRotation(prevPos, curPos) {
-    if (!prevPos) {
-      return 0;
-    }
-    const xDiff = curPos.latitude - prevPos.latitude;
-    const yDiff = curPos.longitude - prevPos.longitude;
-    return (Math.atan2(yDiff, xDiff) * 180.0) / Math.PI;
-  }
-
-  function updateMap() {
-    const curRot = getRotation(prevLocation, currentLocation);
-    _map.current.animateCamera({
-      heading: curRot,
-      center: currentLocation,
-      pitch: currentAngle,
-    });
-  }
+  const { prevLocation, location, mapStatus, searchedAddress, status } =
+    useLocationContext();
+  const [searchedLocation, setSearchedLocation] = useState(null);
 
   useEffect(() => {
-    // changePosition(currentLocation);
-  }, [currentLocation]);
+    if (mapStatus === 'idle') {
+      _map.current.animateCamera({
+        center: {
+          latitude: location.latitude - 0.02,
+          longitude: location.longitude,
+        },
+        // pitch: CAMERA_ANGLE,
+        zoom: 13,
+      });
+    }
+  }, [mapStatus]);
+
+  const showDirections =
+    !!searchedAddress?.place_id && !!location && mapStatus === 'searching';
 
   return (
     <View style={styles.container}>
-      {/* <Button
-        title="tie;"
-        onPress={() =>
-          changePosition({
-            latitude: currentLocation.latitude + 0.0001,
-            longitude: currentLocation.longitude + 0,
-          })
-        }
-      /> */}
       <Animated
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         ref={_map}
-        minZoomLevel={15}
         initialRegion={{
-          ...currentLocation,
+          latitude: location.latitude - 0.02,
+          longitude: location.longitude,
           ...DEFAULT_DELTA,
         }}
       >
-        <Marker
-          coordinate={currentLocation}
-          // anchor={{x: 0.5, y: 0.5}}
-          // image={carImage}
-        />
+        <Marker coordinate={location} />
+        {showDirections && (
+          <MapViewDirections
+            origin={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+            }}
+            destination={`place_id:${searchedAddress?.place_id}`}
+            apikey={GOOGLE_API_KEY}
+            strokeWidth={6}
+            strokeColor="#478dff"
+            onReady={(result) => {
+              setSearchedLocation(
+                result.coordinates[result.coordinates.length - 1]
+              );
+              _map.current.fitToCoordinates(result.coordinates, {
+                edgePadding: {
+                  right: width / 20,
+                  bottom: height / 20,
+                  left: width / 20,
+                  top: height / 20,
+                },
+              });
+            }}
+          />
+        )}
+        <Marker coordinate={location} />
+
+        {showDirections && <Marker coordinate={searchedLocation} />}
       </Animated>
     </View>
   );

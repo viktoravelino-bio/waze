@@ -1,7 +1,8 @@
 import { View } from 'react-native';
-import { MapActionButton } from '../../MapActionButton';
-import { PinPointButton } from '../../PinPointButton';
-import { Speedometer } from '../../Speedometer';
+import { MapActionButton } from '../../atoms/mapActionButton/MapActionButton.component';
+import { PinPointButton } from '../../atoms/pinPointButton/PinPointButton';
+
+import { Speedometer } from '../../atoms/speedometer/Speedometer';
 
 export function HomeBottomSheetBackground(props) {
   return (
