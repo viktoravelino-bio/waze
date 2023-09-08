@@ -28,13 +28,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.waze"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-community-flipper"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1b4f6454-4955-49cc-82ad-16f9ef19b4ee"
+      }
+    }
   }
 }
